@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from 'react';
 import Lenis from 'lenis';
 import Footer from './components/Footer';
 import MiddleContent from './components/MiddleContent';
-import Video from './components/Video';
 
 export default function Home() {
     const [blackBar, animateBlackBar] = useAnimate();
@@ -17,9 +16,10 @@ export default function Home() {
     const [textB, animateB] = useAnimate();
     const [textC, animateC] = useAnimate();
     const [textD, animateD] = useAnimate();
-    const [showVideo, setShowVideo] = useState(false);
+    const [menuRef, animateMenu] = useAnimate();
+    const [videoRef, animateVideo] = useAnimate();
     const container = useRef(null);
-    const movieContainer = useRef(null);
+    const [showContent, setShowContent] = useState(false);
 
     const { scrollYProgress } = useScroll({
         target: container,
@@ -51,7 +51,9 @@ export default function Home() {
             animateB(textB.current, { display: 'none', opacity: 0, y: '100%' }, { duration: 0.5, delay: 0.18 });
             animateC(textC.current, { display: 'none', opacity: 0, y: '100%' }, { duration: 0.5, delay: 0.14 });
             animateD(textD.current, { display: 'none', opacity: 0, y: '100%' }, { duration: 0.5, delay: 0.1 });
-            setShowVideo(true);
+            animateMenu(menuRef.current, { opacity: 1 }, { duration: 0.5, delay: 0.5 });
+            animateVideo(videoRef.current, { scale: 1, rotate: 0 }, { duration: 0.5 });
+            setShowContent(true);
         }
 
         animations();
@@ -101,48 +103,54 @@ export default function Home() {
                         / {count}
                     </motion.p>
                 </motion.div>
-            </div>
-            {showVideo && (
-                <>
-                    <motion.div ref={movieContainer} className='w-full h-screen absolute left-0 top-0 overflow-hidden'>
-                        <motion.div
-                            className='h-full w-full'
-                            style={{ y }}
-                            animate={{ scale: 1, rotate: 0 }}
-                            initial={{ scale: 0, rotate: -10 }}
-                            transition={{ duration: 0.5 }}>
-                            <Video />
-                        </motion.div>
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.5 }}
-                            className='text-white mix-blend-difference z-10 absolute top-4 right-4 uppercase text-sm font-semibold'>
-                            Menu.
-                        </motion.div>
 
-                        <motion.div className='text-white z-10 w-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center uppercase text-3xl lg:text-8xl font-semibold'>
-                            <div className='overflow-hidden'>
-                                <motion.p initial={{ y: '100%' }} animate={{ y: 0 }} transition={{ delay: 0.8, duration: 0.5 }}>
-                                    YOUR VISION,
-                                </motion.p>
-                            </div>
-                            <div className='overflow-hidden'>
-                                <motion.p initial={{ y: '100%' }} animate={{ y: 0 }} transition={{ delay: 0.9, duration: 0.5 }}>
-                                    OUR CREATION.
-                                </motion.p>
-                            </div>
-                            <div className='overflow-hidden'>
-                                <motion.p
-                                    initial={{ y: '100%' }}
-                                    animate={{ y: 0 }}
-                                    transition={{ delay: 1, duration: 0.5 }}
-                                    className='text-orange-400'>
-                                    MADE IN PARIS
-                                </motion.p>
-                            </div>
-                        </motion.div>
-                    </motion.div>
+                <motion.div
+                    ref={menuRef}
+                    initial={{ opacity: 0 }}
+                    className='text-white mix-blend-difference z-10 absolute top-4 right-4 uppercase text-sm font-semibold'>
+                    Menu.
+                </motion.div>
+
+                <div className='w-full h-full overflow-hidden absolute'>
+                    <motion.video
+                        ref={videoRef}
+                        style={{ y }}
+                        initial={{ scale: 0, rotate: -10 }}
+                        transition={{ duration: 0.5 }}
+                        className='w-full h-full object-cover pointer-events-none'
+                        autoPlay
+                        muted
+                        loop
+                        preload='auto'>
+                        <source src='/video.mp4' type='video/mp4' />
+                        Your browser does not support the video tag.
+                    </motion.video>
+                </div>
+
+                <motion.div className='text-white z-10 w-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center uppercase text-3xl lg:text-8xl font-semibold'>
+                    <div className='overflow-hidden'>
+                        <motion.p initial={{ y: '100%' }} animate={{ y: 0 }} transition={{ delay: 3, duration: 0.5 }}>
+                            YOUR VISION,
+                        </motion.p>
+                    </div>
+                    <div className='overflow-hidden'>
+                        <motion.p initial={{ y: '100%' }} animate={{ y: 0 }} transition={{ delay: 3.1, duration: 0.5 }}>
+                            OUR CREATION.
+                        </motion.p>
+                    </div>
+                    <div className='overflow-hidden'>
+                        <motion.p
+                            initial={{ y: '100%' }}
+                            animate={{ y: 0 }}
+                            transition={{ delay: 3.2, duration: 0.5 }}
+                            className='text-orange-400'>
+                            MADE IN PARIS
+                        </motion.p>
+                    </div>
+                </motion.div>
+            </div>
+            {showContent && (
+                <>
                     <MiddleContent />
                     <Footer />
                 </>
