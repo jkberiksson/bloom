@@ -43,7 +43,7 @@ export default function MiddleContent() {
                         animate={{ y: isInView ? '100%' : '0' }}
                         transition={{ duration: 0.5, delay: 0.5 }}
                         className='absolute top-0 left-0 w-full h-full bg-[#D3D8E1] z-10'></motion.div>
-                    <video className='w-full h-full object-cover pointer-events-none' autoPlay muted loop>
+                    <video className='w-full h-full object-cover pointer-events-none' playsInline autoPlay muted loop>
                         <source src='/movie1.mp4' type='video/mp4' />
                         Your browser does not support the video tag.
                     </video>

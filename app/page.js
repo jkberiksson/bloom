@@ -45,7 +45,7 @@ export default function Home() {
             await animateBlackBar(blackBar.current, { width: '100%' }, { duration: 1.2, ease: [0.87, 0, 0.13, 1] });
             animateCount(countRef.current, { opacity: 0 }, { duration: 0.5, delay: 0.5 });
             await animateLoading(loadingRef.current, { opacity: 0 }, { duration: 0.5, delay: 0.5 });
-            await animateBlackBar(blackBar.current, { height: '100vh' }, { duration: 0.3 });
+            await animateBlackBar(blackBar.current, { height: '100dvh' }, { duration: 0.3 });
             animateText(textRef.current, { left: '16px', translateX: '50%' }, { duration: 0.5 });
             animateA(textA.current, { display: 'none', opacity: 0, y: '100%' }, { duration: 0.5, delay: 0.22 });
             animateB(textB.current, { display: 'none', opacity: 0, y: '100%' }, { duration: 0.5, delay: 0.18 });
@@ -61,7 +61,7 @@ export default function Home() {
 
     return (
         <div>
-            <div ref={container} className='flex items-center bg-white h-screen text-black'>
+            <div ref={container} className='flex items-center bg-white h-[100dvh] text-black'>
                 <motion.h1
                     initial={{ opacity: 0, scale: 0.9, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -111,19 +111,19 @@ export default function Home() {
                     Menu.
                 </motion.div>
 
-                <div className='w-full h-full overflow-hidden absolute'>
+                <div className='w-full h-[100dvh] left-0 top-0 overflow-hidden absolute'>
                     <motion.video
                         ref={videoRef}
                         style={{ y }}
                         initial={{ scale: 0, rotate: -10 }}
                         transition={{ duration: 0.5 }}
-                        className='w-full h-full object-cover pointer-events-none'
+                        className='w-full h-[100dvh] object-cover pointer-events-none'
                         autoPlay
+                        playsInline
                         muted
                         loop
                         preload='auto'>
                         <source src='/video.mp4' type='video/mp4' />
-                        Your browser does not support the video tag.
                     </motion.video>
                 </div>
 
