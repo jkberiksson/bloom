@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useAnimate, animate, useScroll, useTransform } from 'motion/react';
+import { motion, useAnimate, animate, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import Lenis from 'lenis';
 import Footer from './components/Footer';
